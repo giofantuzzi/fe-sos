@@ -1,0 +1,30 @@
+function [nodes,elements,dirichlet]=SquareMesh(h)
+% Mesh the unit square using triangles of size h
+L=1;
+N=ceil(L/h);
+hr=L/N;
+[Y,X]=meshgrid(0:hr:L);
+nodes=[X(:),Y(:)];
+ref=1:(N+1)^2;
+idx0=logical(mod(ref',(N+1)));
+idx1=idx0;
+idx1((N+1)^2-N:(N+1)^2)=0;
+idx2=circshift(idx0,1);
+idx2((N+1)^2-N:(N+1)^2)=0;
+idx3=circshift(idx0,1);
+idx3(1:N+1)=0;
+idx4=idx0;
+idx4(1:N+1)=0;
+elementsQ=zeros(N^2,4);
+elementsQ(:,1)=ref(idx1);
+elementsQ(:,2)=ref(idx2);
+elementsQ(:,3)=ref(idx3);
+elementsQ(:,4)=ref(idx4);
+elements=zeros(2*size(elementsQ,1),3);
+elements(1:2:end,:)=elementsQ(:,1:3);
+elements(2:2:end,:)=[elementsQ(:,1),elementsQ(:,3:4)];
+idxDir=(nodes(:,1)<eps|nodes(:,1)>L-eps|nodes(:,2)<eps|nodes(:,2)>L-eps);
+nDir=ref(idxDir);
+gD=@(x,y) 0*x.*y;
+dirichlet=[nDir',gD(nodes(nDir',1),nodes(nDir',2))];
+end
