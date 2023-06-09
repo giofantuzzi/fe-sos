@@ -2,7 +2,7 @@
 
 This repository contains code to replicate the numerical examples in the following preprint:
 
-    G. Fantuzzi & F. Fuentes, *Global minimization of polynomial integral functionals* (2023). [arXiv:2305.18801](https://arxiv.org/abs/2305.18801)
+G. Fantuzzi & F. Fuentes, *Global minimization of polynomial integral functionals* (2023). [arXiv:2305.18801](https://arxiv.org/abs/2305.18801)
 
 ## Contents
 1. `/two-well-2d/`: Code to replicate the example in section 6.1 of the paper
